@@ -571,6 +571,12 @@ class LogScreenView extends backbone.View
     if @filter
       msg = if _msg.match @filter then msg.replace @filter, '<span class="highlight">$1</span>' else null
     if msg
+      msg = try
+        tmp = JSON.parse(msg)
+        console.log tmp
+        JSON.stringify(tmp, null, 4)
+      catch e
+        msg
       @msgs.append @logTemplate
         lmessage: lmessage
         msg: msg
