@@ -539,8 +539,14 @@ class LogScreenView extends backbone.View
 
   logToConsole: (e) =>
     cid = $(e.currentTarget).data("id")
-    console.log e.currentTarget, cid
-    console.log @logScreen.logMessages.get cid
+
+    model = @logScreen.logMessages.get cid
+    if model
+      msg = model.get("message")
+      console.log try
+        JSON.parse(msg)
+      catch e
+        msg
 
   _close: =>
     @logScreen.logMessages.reset()
