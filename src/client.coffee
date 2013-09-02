@@ -538,7 +538,7 @@ class LogScreenView extends backbone.View
     "click p" : "logToConsole"
 
   logToConsole: (e) =>
-    cid = $(e.currentTarget).data("cid")
+    cid = $(e.currentTarget).data("id")
     console.log e, cid
     console.log @logScreen.logMessages.get cid
 
