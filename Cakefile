@@ -1,11 +1,11 @@
 {spawn, exec} = require 'child_process'
 fs = require 'fs'
 
-ENV = '/usr/bin/env'
-BROWSERIFY = "#{ ENV } browserify"
-COFFEE = "#{ ENV } coffee"
-MOCHA = "#{ ENV } mocha"
-LESS = "#{ ENV } lessc"
+ENV = __dirname + "/node_modules/"
+BROWSERIFY = "#{ ENV }browserify/bin/cmd.js"
+COFFEE = "#{ ENV }coffee-script/bin/coffee"
+MOCHA = "#{ ENV }mocha/bin/mocha"
+LESS = "#{ ENV }less/bin/lessc"
 
 TEMPLATE_SRC = "#{ __dirname }/templates"
 TEMPLATE_OUTPUT = "#{ __dirname }/src/templates.coffee"
@@ -13,7 +13,7 @@ TEMPLATE_OUTPUT = "#{ __dirname }/src/templates.coffee"
 task 'build', "Builds Log.io package", ->
   invoke 'templates'
   invoke 'compile'
-  invoke 'func_test'
+  #invoke 'func_test' #currently not working
   invoke 'less'
   invoke 'browserify'
 

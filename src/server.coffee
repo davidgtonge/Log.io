@@ -92,6 +92,7 @@ class LogServer extends events.EventEmitter
       socket._buffer = ''
       socket.on 'data', (data) => @_receive data, socket
       socket.on 'error', (e) =>
+        @_log.error e
         @_log.error 'Lost TCP connection...'
         @_removeNode socket.node.name if socket.node
     @listener.listen @port, @host
