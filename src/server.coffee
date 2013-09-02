@@ -96,6 +96,7 @@ class LogServer extends events.EventEmitter
         @_log.error 'Lost TCP connection...'
         @_removeNode socket.node.name if socket.node
     @listener.listen @port, @host
+    @_log.debug "TCP Server Listening on port: #{@port}"
 
   _receive: (data, socket) =>
     part = data.toString()
