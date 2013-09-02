@@ -623,7 +623,7 @@ processMessage = (msg) ->
       when "loginUser", "getContext"
         "#{tmp.msg} | #{tmp.time.substr(11,8)}"
       when "YWServer route"
-        "#{tmp.res.statusCode} | #{tmp.reqTime}ms | #{tmp.req.url} | #{tmp.time.substr(11,8)}"
+        "#{tmp.res.statusCode} | #{tmp.reqTime}ms | #{tmp.req.method} #{tmp.req.url} | #{tmp.time.substr(11,8)}"
       when "mobile login"
         "#{tmp.msg} | Client Version: #{tmp.mobileClient} | #{tmp.time.substr(11,8)}"
       else
