@@ -197,7 +197,7 @@ class WebServer
       return http.createServer app
 
   run: ->
-    @_log.info 'Starting Log.io Web Server...'
+    @_log.info "Starting Log.io Web Server on port #{@port}..."
     @logServer.run()
     io = io.listen @http.listen @port, @host
     io.set 'log level', 1
@@ -245,7 +245,7 @@ class WebServer
         wclient.join pid
       wclient.on 'unwatch', (pid) ->
         wclient.leave pid
-    @_log.info 'Server started, listening...'
+    @_log.info "Server started, listening on port #{@port}..."
 
 exports.LogServer = LogServer
 exports.WebServer = WebServer
