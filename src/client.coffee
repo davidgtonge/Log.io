@@ -539,7 +539,7 @@ class LogScreenView extends backbone.View
 
   logToConsole: (e) =>
     cid = $(e.currentTarget).data("id")
-    console.log e, cid
+    console.log e.currentTarget, cid
     console.log @logScreen.logMessages.get cid
 
   _close: =>
@@ -615,13 +615,13 @@ processMessage = (msg) ->
     tmp = JSON.parse(msg)
     switch tmp.msg
       when "loginUser", "getContext"
-        "#{tmp.msg} | #{tmp.time}"
+        "#{tmp.msg} | #{tmp.time.substr(11,8)}"
       when "YWServer route"
-        "#{tmp.res.statusCode} | #{tmp.reqTime}ms | #{tmp.req.url} | #{tmp.time}"
+        "#{tmp.res.statusCode} | #{tmp.reqTime}ms | #{tmp.req.url} | #{tmp.time.substr(11,8)}"
       when "mobile login"
-        "#{tmp.msg} | Client Version: #{tmp.mobileClient} | #{tmp.time}"
+        "#{tmp.msg} | Client Version: #{tmp.mobileClient} | #{tmp.time.substr(11,8)}"
       else
-        "#{tmp.msg} | #{tmp.time}"
+        "#{tmp.msg} | #{tmp.time.substr(11,8)}"
   catch e
     msg
 
