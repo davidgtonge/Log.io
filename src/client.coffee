@@ -535,6 +535,12 @@ class LogScreenView extends backbone.View
   events:
     "click .controls .close": "_close"
     "click .controls .clear": "_clear"
+    "click p" : "logToConsole"
+
+  logToConsole: (e) =>
+    cid = $(e.currentTarget).data("cid")
+    console.log e, cid
+    console.log @logScreen.logMessages.get cid
 
   _close: =>
     @logScreen.logMessages.reset()
@@ -571,12 +577,7 @@ class LogScreenView extends backbone.View
     if @filter
       msg = if _msg.match @filter then msg.replace @filter, '<span class="highlight">$1</span>' else null
     if msg
-      msg = try
-        tmp = JSON.parse(msg)
-        console.log tmp
-        JSON.stringify(tmp, null, 4)
-      catch e
-        msg
+      msg = processMessage(msg)
       @msgs.append @logTemplate
         lmessage: lmessage
         msg: msg
@@ -608,5 +609,21 @@ class LogStatsView extends backbone.View
       stats: @stats
     @rendered = true
     @
+
+processMessage = (msg) ->
+  msg = try
+    tmp = JSON.parse(msg)
+    switch tmp.msg
+      when "loginUser", "getContext"
+        "#{tmp.msg} | #{tmp.time}"
+      when "YWServer route"
+        "#{tmp.res.statusCode} | #{tmp.reqTime}ms | #{tmp.req.url} | #{tmp.time}"
+      when "mobile login"
+        "#{tmp.msg} | Client Version: #{tmp.mobileClient} | #{tmp.time}"
+      else
+        "#{tmp.msg} | #{tmp.time}"
+  catch e
+    msg
+
 
 exports.WebClient = WebClient
