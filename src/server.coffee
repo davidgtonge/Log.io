@@ -86,7 +86,7 @@ class LogServer extends events.EventEmitter
     @logNodes = {}
     @logStreams = {}
 
-  run: ->
+  run: =>
     # Create TCP listener socket
     @listener = net.createServer (socket) =>
       socket._buffer = ''
@@ -95,6 +95,8 @@ class LogServer extends events.EventEmitter
         @_log.error e
         @_log.error 'Lost TCP connection...'
         @_removeNode socket.node.name if socket.node
+        @log.info 'Restarting server'
+        @listener.close @run
     @listener.listen @port, @host
     @_log.debug "TCP Server Listening on port: #{@port}"
 
